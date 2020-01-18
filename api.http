@@ -1,0 +1,7 @@
+# GET http://localhost:4800/api/courses/3
+# GET http://localhost:4800/api/courses
+POST  http://localhost:4800/api/courses/newcourse
+
+{
+    "name" :"SQL"
+}
