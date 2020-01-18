@@ -1,0 +1,5 @@
+POST http://localhost:4800/api/newsong/
+
+{
+    "name":"Banjara"
+}
