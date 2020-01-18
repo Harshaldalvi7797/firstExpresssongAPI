@@ -26,14 +26,14 @@ app.get("/api/songs/:id", (req, res) => {
 app.post("/api/songs/newsong", (req, res) => {
 
     let Schema = Joi.object({
-        name: Joi.string().required()
+        name: Joi.string().required().min(4)
     })
 
-    let result = Schema.validate(req.body);
+    let { error } = Schema.validate(req.body);
 
-    console.log(result);
-    if (result.error) {
-        return res.send(result.error)
+    // console.log(result);
+    if (error) {
+        return res.send(error.details[0].message)
     }
 
     let song = {
@@ -41,6 +41,33 @@ app.post("/api/songs/newsong", (req, res) => {
         name: req.body.name
     }
     songslist.push(song);
+    res.send(songslist);
+
+})
+
+//Update song
+app.put("/api/songs/updatesong/:id", (req, res) => {
+
+    //id
+    let song = songslist.find(item => item.id === parseInt(req.params.id));
+    if (!song) {
+        return res.status(404).send({ message: "invalid song id " })
+    }
+
+
+    //Joi
+
+    let Schema = Joi.object({
+        name: Joi.string().required().min(4)
+    })
+
+    let { error } = Schema.validate(req.body);
+
+    // console.log(result);
+    if (error) {
+        return res.send(error.details[0].message)
+    }
+    song.name = req.body.name;
     res.send(songslist);
 
 })
