@@ -8,7 +8,9 @@ app.get("/api/songlist", (req, res) => {
 })
 app.use(express.json());
 
-let songslist = [{ id: 1, name: "sairat" }, { id: 2, name: "senorita" }, { id: 3, name: "Dil" }];
+let songslist = [{ id: 1, name: "sairat", Singer: "Ajay-Atul", Duration: "4:30", Price: "500" },
+{ id: 2, name: "senorita", Singer: "María del Mar Fernández ", Duration: "5:30", Price: "800" }]
+// { id: 3, name: "Dil" }];
 
 app.get("/api/songs/:id", (req, res) => {
     let id = req.params.id;
@@ -25,11 +27,11 @@ app.get("/api/songs/:id", (req, res) => {
 
 app.post("/api/songs/newsong", (req, res) => {
 
-    let Schema = Joi.object({
-        name: Joi.string().required().min(4)
-    })
+    // let Schema = Joi.object({
+    //     name: Joi.string().required().min(4)
+    // })
 
-    let { error } = Schema.validate(req.body);
+    let { error } = validationError(req.body);
 
     // console.log(result);
     if (error) {
@@ -40,6 +42,7 @@ app.post("/api/songs/newsong", (req, res) => {
         id: songslist.length + 1,
         name: req.body.name
     }
+
     songslist.push(song);
     res.send(songslist);
 
@@ -57,11 +60,11 @@ app.put("/api/songs/updatesong/:id", (req, res) => {
 
     //Joi
 
-    let Schema = Joi.object({
-        name: Joi.string().required().min(4)
-    })
+    // let Schema = Joi.object({
+    //     name: Joi.string().required().min(4)
+    // })
 
-    let { error } = Schema.validate(req.body);
+    let { error } = validationError(req.body);
 
     // console.log(result);
     if (error) {
@@ -71,6 +74,28 @@ app.put("/api/songs/updatesong/:id", (req, res) => {
     res.send(songslist);
 
 })
+
+//Remove Song
+
+app.delete("/api/songs/removesong/:id", (req, res) => {
+    //id
+    let song = songslist.find(item => item.id === parseInt(req.params.id));
+    if (!song) {
+        return res.status(404).send({ message: "invalid song id " })
+    }
+    let index = songslist.indexOf(song)
+    songslist.splice(index, 1);
+    res.send({ message: "remove the data", S: songslist });
+
+})
+
+function validationError(error) {
+    let Schema = Joi.object({
+        name: Joi.string().required().min(4)
+    })
+    return Schema.validate(error);
+
+}
 
 
 
