@@ -1,12 +1,29 @@
 let express = require("express");
 let app = express();
-let port = process.env.NODE_ENV || 4800;
+// let port = process.env.NODE_ENV || 4800; // set envirment
+// let port = process.env.PORT || 4800; // set port
+let port = process.env.PORT || 4800;
+
+app.use(express.json());
+console.log(`Default mode: ${app.get('env')}`);
+console.log(`mode: ${process.env.NODE_ENV}`);
+
+
+
+
+
+
 let Joi = require("@hapi/joi");
+
+// console.log(`default mode ${app.get('env')}`);
+// console.log(`MODE ${process.env.NODE_ENV}`);
+
+
 
 app.get("/api/songlist", (req, res) => {
     res.send(songslist);
 })
-app.use(express.json());
+
 
 let songslist = [{ id: 1, name: "sairat", Singer: "Ajay-Atul", Duration: "4:30", Price: "500" },
 { id: 2, name: "senorita", Singer: "María del Mar Fernández ", Duration: "5:30", Price: "800" }]
