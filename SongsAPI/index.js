@@ -1,19 +1,25 @@
 let express = require("express");
 let app = express();
+
 // let port = process.env.NODE_ENV || 4800; // set envirment
 // let port = process.env.PORT || 4800; // set port
 let port = process.env.PORT || 4800;
 
 app.use(express.json());
+let Joi = require("@hapi/joi");
+let config = require("config");
 console.log(`Default mode: ${app.get('env')}`);
 console.log(`mode: ${process.env.NODE_ENV}`);
 
+console.log(`app name: ${config.get("name")}`);
+console.log(`mode: ${config.get("email")}`)
 
 
 
 
 
-let Joi = require("@hapi/joi");
+
+
 
 // console.log(`default mode ${app.get('env')}`);
 // console.log(`MODE ${process.env.NODE_ENV}`);
