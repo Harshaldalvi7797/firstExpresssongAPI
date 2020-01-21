@@ -6,6 +6,7 @@ let app = express();
 let port = process.env.PORT || 4800;
 
 app.use(express.json());
+app.use(express.static("public"))
 let Joi = require("@hapi/joi");
 let config = require("config");
 console.log(`Default mode: ${app.get('env')}`);
