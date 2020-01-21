@@ -1,16 +1,21 @@
 let express = require("express");
 let app = express();
+let morgan = require("morgan");
+let Joi = require("@hapi/joi");
+let config = require("config");
+let U = require("./middleware/index");
 
 // let port = process.env.NODE_ENV || 4800; // set envirment
 // let port = process.env.PORT || 4800; // set port
 let port = process.env.PORT || 4800;
 
 app.use(express.json());
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
-app.use(express.urlencoded()); // traditional approach for data fetch using postman
-let Joi = require("@hapi/joi");
-let config = require("config");
+// app.use(express.urlencoded()); // traditional approach for data fetch using postman
+
+// app.use(U);
+app.use(morgan("tiny"));
 console.log(`Default mode: ${app.get('env')}`);
 console.log(`mode: ${process.env.NODE_ENV}`);
 
