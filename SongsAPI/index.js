@@ -6,7 +6,9 @@ let app = express();
 let port = process.env.PORT || 4800;
 
 app.use(express.json());
-app.use(express.static("public"))
+app.use(express.static("public"));
+
+app.use(express.urlencoded()); // traditional approach for data fetch using postman
 let Joi = require("@hapi/joi");
 let config = require("config");
 console.log(`Default mode: ${app.get('env')}`);
