@@ -12,7 +12,8 @@ console.log(`Default mode: ${app.get('env')}`);
 console.log(`mode: ${process.env.NODE_ENV}`);
 
 console.log(`app name: ${config.get("name")}`);
-console.log(`mode: ${config.get("email")}`)
+console.log(`mode: ${config.get("email")}`);
+console.log(`password: ${config.get("password")}`);
 
 
 
